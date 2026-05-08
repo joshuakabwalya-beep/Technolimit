@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Intelligence Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #5B91FF;
+            --primary-dark: #4478E6;
+            --secondary: #8B5CF6;
+            --accent-gold: #F59E0B;
+            --accent-green: #10B981;
+            --dark: #0A0E27;
+            --dark-secondary: #111827;
+            --text-primary: #E8EEF5;
+            --text-secondary: #A1A8B8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-secondary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 24px rgba(91, 145, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 5rem 2rem;
+            min-height: 80vh;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .hero-demo {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .demo-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-icon {
+            font-size: 1.8rem;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(91, 145, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(91, 145, 255, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(91, 145, 255, 0.3);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(91, 145, 255, 0.2);
+        }
+
+        .card h3 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(91, 145, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .pricing-card button {
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem 1rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .close-btn:hover {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: var(--accent-green);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="showHome()">🚀 Collaborative</div>
+            <ul class="nav-links">
+                <li><a onclick="showHome()">Home</a></li>
+                <li><a onclick="showFeatures()">Features</a></li>
+                <li><a onclick="showPricing()">Pricing</a></li>
+                <li><a onclick="showDashboard()">Dashboard</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="showLogin()">Login</button>
+                <button class="btn-primary" onclick="showSignup()">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="container">
+            <div class="hero">
+                <div>
+                    <h1>The Future of Collaboration & Learning</h1>
+                    <p>Work together asynchronously. No meetings. No pressure. Just growth.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary btn-large" onclick="showSignup()">Start Free</button>
+                        <button class="btn-secondary btn-large" onclick="showFeatures()">Learn More</button>
+                    </div>
+                </div>
+                <div class="hero-demo">
+                    <div class="demo-item">
+                        <div class="demo-icon">🎯</div>
+                        <div>
+                            <div style="font-weight: 600;">Active Pods</div>
+                            <div style="color: var(--primary);">4 Active</div>
+                        </div>
+                    </div>
+                    <div class="demo-item">
+                        <div class="demo-icon">📚</div>
+                        <div>
+                            <div style="font-weight: 600;">Skills Learning</div>
+                            <div style="color: var(--primary);">6 Skills</div>
+                        </div>
+                    </div>
+                    <div class="demo-item">
+                        <div class="demo-icon">🤝</div>
+                        <div>
+                            <div style="font-weight: 600;">People Helped</div>
+                            <div style="color: var(--primary);">23 People</div>
+                        </div>
+                    </div>
+                    <div class="demo-item">
+                        <div class="demo-icon">⭐</div>
+                        <div>
+                            <div style="font-weight: 600;">Your Reputation</div>
+                            <div style="color: var(--primary);">8.5/10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="container" style="display: none;">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need to collaborate, learn, and grow together</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Async-First Pods</h3>
+                    <p>Collaborate without meetings. Work together asynchronously with no pressure or notifications.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📚</div>
+                    <h3>Skill Graphs</h3>
+                    <p>Visualize what you know, what you're learning, and where you want to grow next.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Reputation System</h3>
+                    <p>Earn trust through helping others. Reputation that evolves with your expertise.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Smart Discovery</h3>
+                    <p>Find collaborators matched to your learning journey, not just your skills.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💬</div>
+                    <h3>Async Annotations</h3>
+                    <p>Leave feedback and insights whenever you want. Threaded conversations that preserve context.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Network</h3>
+                    <p>Connect with learners and experts worldwide. Timezone-aware collaboration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="container" style="display: none;">
+            <div class="section-header">
+                <h2>Simple, Fair Pricing</h2>
+                <p>Start free. Scale as you grow.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Starter</div>
+                    <div class="pricing-price">Free</div>
+                    <ul class="pricing-features">
+                        <li>3 pods</li>
+                        <li>5 collaborators</li>
+                        <li>Basic reputation system</li>
+                        <li>Community support</li>
+                    </ul>
+                    <button class="btn-secondary">Get Started</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Pro</div>
+                    <div class="pricing-price">$20<span style="font-size: 1rem; color: var(--text-secondary);">/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Unlimited pods</li>
+                        <li>Unlimited collaborators</li>
+                        <li>Advanced analytics</li>
+                        <li>Priority compute</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button class="btn-primary">Start Free Trial</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">Custom</div>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>Custom deployments</li>
+                        <li>API access</li>
+                        <li>SSO & security</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <button class="btn-secondary">Contact Sales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="container dashboard">
+            <h2 style="margin-bottom: 2rem;">Welcome to Your Dashboard</h2>
+            
+            <!-- Stats -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Active Pods</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Skills Learning</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">People Helped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8.5</div>
+                    <div class="stat-label">Reputation Score</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('pods')">My Pods</button>
+                <button class="tab-btn" onclick="switchTab('profile')">Profile</button>
+                <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
+            </div>
+
+            <!-- Pods Tab -->
+            <div id="pods" class="tab-content active">
+                <h3 style="margin-bottom: 1.5rem;">Your Active Pods</h3>
+                <div class="card-grid" id="pods-list">
+                    <!-- Pods will be loaded here -->
+                </div>
+                <button class="btn-primary" style="margin-top: 2rem;" onclick="showCreatePod()">+ Create New Pod</button>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile" class="tab-content">
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Your Profile</h3>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="profileName" placeholder="Your name" value="John Developer">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="profileEmail" placeholder="Your email" value="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea id="profileBio" placeholder="Tell us about yourself">Full stack developer passionate about learning</textarea>
+                    </div>
+                    <button class="btn-primary" onclick="saveProfile()">Save Profile</button>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-content">
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 2rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Settings</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                            <input type="checkbox" id="emailNotif" checked style="width: 20px; height: 20px;">
+                            <span>Email Notifications</span>
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                            <input type="checkbox" id="pushNotif" checked style="width: 20px; height: 20px;">
+                            <span>Push Notifications</span>
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 2rem;">
+                        <label style="display: flex; align-items: center; gap: 1rem; cursor: pointer;">
+                            <input type="checkbox" id="darkMode" checked style="width: 20px; height: 20px;">
+                            <span>Dark Mode</span>
+                        </label>
+                    </div>
+                    <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal" onclick="if(event.target === this) closeModal('loginModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Login</span>
+                <button class="close-btn" onclick="closeModal('loginModal')">×</button>
+            </div>
+            <div class="success-message" id="loginSuccess"></div>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal" onclick="if(event.target === this) closeModal('signupModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Create Account</span>
+                <button class="close-btn" onclick="closeModal('signupModal')">×</button>
+            </div>
+            <div class="success-message" id="signupSuccess"></div>
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signupConfirm" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Pod Modal -->
+    <div id="createPodModal" class="modal" onclick="if(event.target === this) closeModal('createPodModal')">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Create New Pod</span>
+                <button class="close-btn" onclick="closeModal('createPodModal')">×</button>
+            </div>
+            <div class="success-message" id="podSuccess"></div>
+            <form onsubmit="handleCreatePod(event)">
+                <div class="form-group">
+                    <label>Pod Name</label>
+                    <input type="text" id="podName" placeholder="e.g., Advanced Rust Programming" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="podDesc" placeholder="What will this pod be about?" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Topic</label>
+                    <select id="podTopic" required>
+                        <option value="">Select a topic</option>
+                        <option value="Python">Python</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Rust">Rust</option>
+                        <option value="AI/ML">AI/ML</option>
+                        <option value="DevOps">DevOps</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Create Pod</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <a onclick="showFeatures()">Features</a>
+                <a onclick="showPricing()">Pricing</a>
+                <a href="#">Security</a>
+                <a href="#">Roadmap</a>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <a href="#">Documentation</a>
+                <a href="#">API</a>
+                <a href="#">Community</a>
+                <a href="#">Status</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Security</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Collaborative. Building the future of collaboration.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let pods = JSON.parse(localStorage.getItem('pods')) || [
+            { id: 1, name: 'Advanced Rust', description: 'Deep dive into Rust', topic: 'Rust', members: 12, completion: 65 },
+            { id: 2, name: 'Full Stack Web', description: 'React + Node.js', topic: 'JavaScript', members: 8, completion: 45 },
+            { id: 3, name: 'AI/ML Fundamentals', description: 'Machine learning basics', topic: 'AI/ML', members: 15, completion: 20 }
+        ];
+
+        // Navigation Functions
+        function showHome() {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('features').style.display = 'none';
+            document.getElementById('pricing').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        function showFeatures() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('features').style.display = 'block';
+            document.getElementById('pricing').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        function showPricing() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('features').style.display = 'none';
+            document.getElementById('pricing').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        function showDashboard() {
+            if (!currentUser) {
+                showLogin();
+                return;
+            }
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('features').style.display = 'none';
+            document.getElementById('pricing').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadPods();
+        }
+
+        // Modal Functions
+        function showLogin() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function showSignup() {
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        function showCreatePod() {
+            document.getElementById('createPodModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Auth Functions
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                document.getElementById('loginSuccess').textContent = 'Login successful!';
+                document.getElementById('loginSuccess').classList.add('show');
+                setTimeout(() => {
+                    closeModal('loginModal');
+                    showDashboard();
+                    document.getElementById('loginSuccess').classList.remove('show');
+                }, 1500);
+            } else {
+                alert('Invalid email or password');
+            }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+
+            if (password !== confirm) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            if (users.find(u => u.email === email)) {
+                alert('Email already registered');
+                return;
+            }
+
+            const newUser = { id: users.length + 1, name, email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            document.getElementById('signupSuccess').textContent = 'Account created successfully!';
+            document.getElementById('signupSuccess').classList.add('show');
+            setTimeout(() => {
+                closeModal('signupModal');
+                showDashboard();
+                document.getElementById('signupSuccess').classList.remove('show');
+            }, 1500);
+        }
+
+        // Dashboard Functions
+        function loadPods() {
+            const podsList = document.getElementById('pods-list');
+            podsList.innerHTML = '';
+            pods.forEach(pod => {
+                podsList.innerHTML += `
+                    <div class="card">
+                        <h3>${pod.name}</h3>
+                        <p>${pod.description}</p>
+                        <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                            👥 ${pod.members} members | 📊 ${pod.completion}% complete
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('profileName').value;
+            const email = document.getElementById('profileEmail').value;
+            const bio = document.getElementById('profileBio').value;
+
+            if (currentUser) {
+                currentUser.name = name;
+                currentUser.email = email;
+                currentUser.bio = bio;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                alert('Profile saved successfully!');
+            }
+        }
+
+        function saveSettings() {
+            const emailNotif = document.getElementById('emailNotif').checked;
+            const pushNotif = document.getElementById('pushNotif').checked;
+            const darkMode = document.getElementById('darkMode').checked;
+
+            const settings = { emailNotif, pushNotif, darkMode };
+            localStorage.setItem('settings', JSON.stringify(settings));
+            alert('Settings saved successfully!');
+        }
+
+        function handleCreatePod(e) {
+            e.preventDefault();
+            const name = document.getElementById('podName').value;
+            const desc = document.getElementById('podDesc').value;
+            const topic = document.getElementById('podTopic').value;
+
+            const newPod = {
+                id: pods.length + 1,
+                name,
+                description: desc,
+                topic,
+                members: 1,
+                completion: 0
+            };
+
+            pods.push(newPod);
+            localStorage.setItem('pods', JSON.stringify(pods));
+
+            document.getElementById('podSuccess').textContent = 'Pod created successfully!';
+            document.getElementById('podSuccess').classList.add('show');
+            setTimeout(() => {
+                closeModal('createPodModal');
+                loadPods();
+                document.getElementById('podSuccess').classList.remove('show');
+            }, 1500);
+        }
+
+        // Load settings on page load
+        window.addEventListener('load', () => {
+            const settings = JSON.parse(localStorage.getItem('settings'));
+            if (settings) {
+                document.getElementById('emailNotif').checked = settings.emailNotif;
+                document.getElementById('pushNotif').checked = settings.pushNotif;
+                document.getElementById('darkMode').checked = settings.darkMode;
+            }
+        });
+    </script>
+</body>
+</html>
